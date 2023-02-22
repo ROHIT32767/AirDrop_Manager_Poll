@@ -72,6 +72,13 @@ class GridDashboard extends StatelessWidget {
       event: "",
       img: "assets/home/claim.png",
       route: 'claim_verify');
+  
+  Items item10 = Items(
+      title: "ManagerPoll",
+      subtitle: "Become a Manager!!",
+      event: "",
+      img: "assets/home/snapshot.png",
+      route: 'ManagerPoll');
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +90,7 @@ class GridDashboard extends StatelessWidget {
       item5,
       item6,
       item7,
+      item10
     ];
     if (loggedInUser.role != null &&
         (loggedInUser.role == "manager" || loggedInUser.role == "admin")) {

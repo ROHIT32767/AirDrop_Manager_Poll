@@ -77,7 +77,6 @@ class CreatePollPageState extends State<CreatePollPage> {
             labelText: 'Poll options',
             options: ['Yes', 'No'],
           ),
-
         ],
       ),
     ];

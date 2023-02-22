@@ -48,6 +48,7 @@ Future<void> main() async {
       'audio': (context) => const RecorderPage(),
       'manager_page': (context) => const ManagerPage(),
       'claim_verify': (context) => const ClaimVerifyPage(),
+      'ManagerPoll' : (context) => const ManagerPollPage()
     },
   ));
 }

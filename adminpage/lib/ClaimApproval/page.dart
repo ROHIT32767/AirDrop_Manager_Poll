@@ -17,7 +17,7 @@ class ClaimApprovePageState extends State<ClaimApprovePage> {
   UserModel loggedInUser = UserModel();
   final db = FirebaseFirestore.instance;
   String? masterKey = '';
-
+ 
   void setRemoteConfig() async {
     FirebaseFirestore.instance
         .collection("constants")

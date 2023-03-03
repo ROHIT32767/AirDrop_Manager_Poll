@@ -8,7 +8,7 @@ import 'package:adminpage/AirDrop/insurance_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:adminpage/Home/home.dart';
-import 'package:adminpage/ManagerPoll/ManagerPoll.dart'
+import 'package:adminpage/ManagerPoll/ManagerPoll.dart';
 
 void main() async {
   await Firebase.initializeApp(

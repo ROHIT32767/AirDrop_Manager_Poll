@@ -47,6 +47,7 @@ class GridDashboard extends StatelessWidget {
       item1,
       item2,
       item3,
+      item4
     ];
     var color = 0xff453658;
     return Flexible(

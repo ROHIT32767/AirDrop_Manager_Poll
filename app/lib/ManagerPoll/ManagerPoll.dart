@@ -194,7 +194,17 @@ class _ManagerPollPageState extends State<ManagerPollPage> {
                                       final docref = polls.doc(doc['id']);
                                       if(AboveLimit(doc))
                                       {
+                                        final data = {"userid": doc.creator_id};
                                         // Write code to create Join Requests
+                                            try {
+                                                  await db.collection("Requests").add(data);
+                                                  Fluttertoast.showToast(msg: "Your Manager poll proposal was successfully sent!");
+                                                    if (!context.mounted) return;
+
+                                                  Navigator.pop(context);
+                                                } catch (e) {
+                                                  Fluttertoast.showToast(msg: e.toString());
+                                                }
                                       }
                                       await docref.update(
                                           {"votes.${user!.uid}": choice - 1});

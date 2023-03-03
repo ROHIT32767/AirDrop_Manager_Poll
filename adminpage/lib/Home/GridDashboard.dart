@@ -34,6 +34,13 @@ class GridDashboard extends StatelessWidget {
       img: "assets/home/airdrop.png",
       route: 'airdrop');
 
+  Items item4 = Items(
+      title: "Approve Manager Requests",
+      subtitle: "Hire New Managers",
+      event: "",
+      img: "assets/home/airdrop.png",
+      route: 'ManagerPoll');
+
   @override
   Widget build(BuildContext context) {
     List<Items> myList = [

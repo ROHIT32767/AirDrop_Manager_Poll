@@ -8,9 +8,9 @@ import 'package:adminpage/AirDrop/insurance_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:adminpage/Home/home.dart';
+import 'package:adminpage/ManagerPoll/ManagerPoll.dart'
 
 void main() async {
-  await dotenv.load(fileName: ".env");
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -38,6 +38,7 @@ void main() async {
       'claim_approve': (context) => const ClaimApprovePage(),
       'airdrop': (context) => const AirDropScreen(),
       'home': (context) => const HomePage(),
+      'ManagerPoll' : (context) => const ManagerPoll()
     },
     // home: const MyHomePage(title: 'Flutter Demo Home Page'),
   ));
@@ -71,6 +72,7 @@ class MyApp extends StatelessWidget {
         'claim_approve': (context) => const ClaimApprovePage(),
         'airdrop': (context) => const AirDropScreen(),
         'home': (context) => const HomePage(),
+        'ManagerPoll' : (context) => const ManagerPoll()
       },
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );

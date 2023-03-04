@@ -29,7 +29,7 @@ class _ManagerPollPageState extends State<ManagerPollPage> {
 
   void fillDBData() async {
     try {
-      QuerySnapshot querySnapshot = await db.collection("polls").where("ManagerPoll", isEqualTo: true);
+      QuerySnapshot querySnapshot = await db.collection("polls").where("ManagerPoll", isEqualTo: true).get();
       dbdata = querySnapshot.docs.map((doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
         data['id'] = doc.id;

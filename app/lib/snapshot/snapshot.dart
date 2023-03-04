@@ -29,7 +29,7 @@ class _SnapshotPageState extends State<SnapshotPage> {
 
   void fillDBData() async {
     try {
-      QuerySnapshot querySnapshot = await db.collection("polls").get();
+      QuerySnapshot querySnapshot = await db.collection("polls").where("ManagerPoll", isEqualTo: false).get();
       dbdata = querySnapshot.docs.map((doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
         data['id'] = doc.id;
@@ -42,7 +42,8 @@ class _SnapshotPageState extends State<SnapshotPage> {
       DateTime st = DateTime.parse(data['start']);
       DateTime en = DateTime.parse(data['end']);
       DateTime today = DateTime.now();
-      return (st.isBefore(today) && en.isAfter(today));
+      bool isManagerPoll = data['ManagerPoll']
+      return (st.isBefore(today) && en.isAfter(today) && !isManagerPoll);
     }).toList();
     setState(() {});
   }
@@ -71,7 +72,8 @@ class _SnapshotPageState extends State<SnapshotPage> {
         DateTime st = DateTime.parse(data['start']);
         DateTime en = DateTime.parse(data['end']);
         DateTime today = DateTime.now();
-        return (st.isBefore(today) && en.isAfter(today));
+        bool isManagerPoll = data['ManagerPoll']
+        return (st.isBefore(today) && en.isAfter(today) && !isManagerPoll);
       }).toList();
       setState(() {});
     });

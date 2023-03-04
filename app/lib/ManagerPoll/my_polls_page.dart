@@ -25,7 +25,7 @@ class _MyPollsPageState extends State<MyPollsPage> {
 
   void fillDBData() async {
     try {
-      QuerySnapshot querySnapshot = await db.collection("polls").get();
+      QuerySnapshot querySnapshot = await db.collection("polls").where("ManagerPoll", isEqualTo: true).get();
       dbdata = querySnapshot.docs.map((doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
         data['id'] = doc.id;
@@ -37,7 +37,8 @@ class _MyPollsPageState extends State<MyPollsPage> {
     final auth = FirebaseAuth.instance;
     User? user = auth.currentUser;
     dbdata = dbdata.where((data) {
-      return (data['creator_id'] == user?.uid);
+      bool isManagerPoll = data['ManagerPoll']
+      return (data['creator_id'] == user?.uid) && isManagerPoll;
     }).toList();
     setState(() {});
   }
@@ -55,7 +56,8 @@ class _MyPollsPageState extends State<MyPollsPage> {
       final auth = FirebaseAuth.instance;
       User? user = auth.currentUser;
       dbdata = dbdata.where((data) {
-        return (data['creator_id'] == user?.uid);
+        bool isManagerPoll = data['ManagerPoll']
+        return (data['creator_id'] == user?.uid) && isManagerPoll;
       }).toList();
       setState(() {});
     });

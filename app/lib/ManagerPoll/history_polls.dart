@@ -25,7 +25,7 @@ class _HistoryPollsPageState extends State<HistoryPollsPage> {
 
   void fillDBData() async {
     try {
-      QuerySnapshot querySnapshot = await db.collection("polls").get();
+      QuerySnapshot querySnapshot = await db.collection("polls").where("ManagerPoll", isEqualTo: true).get();
       dbdata = querySnapshot.docs.map((doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
         data['id'] = doc.id;
@@ -37,11 +37,12 @@ class _HistoryPollsPageState extends State<HistoryPollsPage> {
     dbdata = dbdata.where((data) {
       DateTime en = DateTime.parse(data['end']);
       DateTime today = DateTime.now();
-      return (today.isAfter(en));
+      bool isManagerPoll = data['ManagerPoll']
+      return (today.isAfter(en) && isManagerPoll);
     }).toList();
     setState(() {});
   }
-
+ 
   @override
   void initState() {
     super.initState();
@@ -55,7 +56,8 @@ class _HistoryPollsPageState extends State<HistoryPollsPage> {
       dbdata = dbdata.where((data) {
         DateTime en = DateTime.parse(data['end']);
         DateTime today = DateTime.now();
-        return (today.isAfter(en));
+        bool isManagerPoll = data['ManagerPoll']
+        return (today.isAfter(en) && isManagerPoll);
       }).toList();
       setState(() {});
     });

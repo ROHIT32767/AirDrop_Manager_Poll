@@ -23,10 +23,8 @@ class ManagerPollPage extends StatefulWidget {
 class _ManagerPollPageState extends State<ManagerPollPage> {
   User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInUser = UserModel();
-  const q = query(collection(db, "polls"), where("", "==", true));
   FirebaseFirestore db = FirebaseFirestore.instance;
   var dbdata = [];
-
   void fillDBData() async {
     try {
       QuerySnapshot querySnapshot = await db.collection("polls").where("ManagerPoll", isEqualTo: true).get();
@@ -42,7 +40,8 @@ class _ManagerPollPageState extends State<ManagerPollPage> {
       DateTime st = DateTime.parse(data['start']);
       DateTime en = DateTime.parse(data['end']);
       DateTime today = DateTime.now();
-      return (st.isBefore(today) && en.isAfter(today));
+      bool isManagerPoll = data['ManagerPoll']
+      return (st.isBefore(today) && en.isAfter(today) && isManagerPoll);
     }).toList();
     setState(() {});
   }
@@ -62,7 +61,7 @@ class _ManagerPollPageState extends State<ManagerPollPage> {
 
     fillDBData();
 
-    db.collection("polls").where("ManagerPoll", isEqualTo: true).snapshots().listen((event) {
+    db.collection("polls").snapshots().listen((event) {
       dbdata = [];
       for (var doc in event.docs) {
         dbdata.add(doc.data());
@@ -71,7 +70,8 @@ class _ManagerPollPageState extends State<ManagerPollPage> {
         DateTime st = DateTime.parse(data['start']);
         DateTime en = DateTime.parse(data['end']);
         DateTime today = DateTime.now();
-        return (st.isBefore(today) && en.isAfter(today));
+        bool isManagerPoll = data['ManagerPoll']
+        return (st.isBefore(today) && en.isAfter(today) && isManagerPoll);
       }).toList();
       setState(() {});
     });
@@ -200,7 +200,6 @@ class _ManagerPollPageState extends State<ManagerPollPage> {
                                                   await db.collection("Requests").add(data);
                                                   Fluttertoast.showToast(msg: "Your Manager poll proposal was successfully sent!");
                                                     if (!context.mounted) return;
-
                                                   Navigator.pop(context);
                                                 } catch (e) {
                                                   Fluttertoast.showToast(msg: e.toString());
@@ -295,13 +294,11 @@ class _ManagerPollPageState extends State<ManagerPollPage> {
     for (int i = 0; i < doc['options'].length; i++) {
       count[i] = 0;
     }
-
     if (doc['votes'] == null) return count;
 
     for (Object? vote in doc['votes'].values) {
       count[vote as int] = (count[vote] ?? 0) + 1;
     }
-
     return count;
   }
 }

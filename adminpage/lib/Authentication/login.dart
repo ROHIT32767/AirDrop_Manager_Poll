@@ -159,37 +159,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             const SizedBox(
                               height: 40,
                             ),
-                            // Row(
-                            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            //   children: [
-                            //     TextButton(
-                            //       onPressed: () {
-                            //         Navigator.pushNamed(context, 'register');
-                            //       },
-                            //       style: const ButtonStyle(),
-                            //       child: const Text(
-                            //         'Sign Up',
-                            //         textAlign: TextAlign.left,
-                            //         style: TextStyle(
-                            //             decoration: TextDecoration.underline,
-                            //             fontSize: 18),
-                            //       ),
-                            //     ),
-                            //     // TextButton(
-                            //     //   onPressed: () {
-                            //     //     forgotPassword(emailController.text);
-                            //     //   },
-                            //     //   style: const ButtonStyle(),
-                            //     //   child: const Text(
-                            //     //     'Forgot Password',
-                            //     //     textAlign: TextAlign.left,
-                            //     //     style: TextStyle(
-                            //     //         decoration: TextDecoration.underline,
-                            //     //         fontSize: 18),
-                            //     //   ),
-                            //     // ),
-                            //   ],
-                            // )
                           ],
                         ),
                       ),

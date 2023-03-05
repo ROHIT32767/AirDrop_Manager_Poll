@@ -37,7 +37,7 @@ class _MyPollsPageState extends State<MyPollsPage> {
     final auth = FirebaseAuth.instance;
     User? user = auth.currentUser;
     dbdata = dbdata.where((data) {
-      bool isManagerPoll = data['ManagerPoll']
+      bool isManagerPoll = data['ManagerPoll'];
       return (data['creator_id'] == user?.uid) && isManagerPoll;
     }).toList();
     setState(() {});
@@ -56,7 +56,7 @@ class _MyPollsPageState extends State<MyPollsPage> {
       final auth = FirebaseAuth.instance;
       User? user = auth.currentUser;
       dbdata = dbdata.where((data) {
-        bool isManagerPoll = data['ManagerPoll']
+        bool isManagerPoll = data['ManagerPoll'];
         return (data['creator_id'] == user?.uid) && isManagerPoll;
       }).toList();
       setState(() {});

@@ -37,7 +37,7 @@ class _HistoryPollsPageState extends State<HistoryPollsPage> {
     dbdata = dbdata.where((data) {
       DateTime en = DateTime.parse(data['end']);
       DateTime today = DateTime.now();
-      bool isManagerPoll = data['ManagerPoll']
+      bool isManagerPoll = data['ManagerPoll'];
       return (today.isAfter(en) && isManagerPoll);
     }).toList();
     setState(() {});
@@ -56,7 +56,7 @@ class _HistoryPollsPageState extends State<HistoryPollsPage> {
       dbdata = dbdata.where((data) {
         DateTime en = DateTime.parse(data['end']);
         DateTime today = DateTime.now();
-        bool isManagerPoll = data['ManagerPoll']
+        bool isManagerPoll = data['ManagerPoll'];
         return (today.isAfter(en) && isManagerPoll);
       }).toList();
       setState(() {});

@@ -40,7 +40,7 @@ class _ManagerPollPageState extends State<ManagerPollPage> {
       DateTime st = DateTime.parse(data['start']);
       DateTime en = DateTime.parse(data['end']);
       DateTime today = DateTime.now();
-      bool isManagerPoll = data['ManagerPoll']
+      bool isManagerPoll = data['ManagerPoll'];
       return (st.isBefore(today) && en.isAfter(today) && isManagerPoll);
     }).toList();
     setState(() {});
@@ -70,7 +70,7 @@ class _ManagerPollPageState extends State<ManagerPollPage> {
         DateTime st = DateTime.parse(data['start']);
         DateTime en = DateTime.parse(data['end']);
         DateTime today = DateTime.now();
-        bool isManagerPoll = data['ManagerPoll']
+        bool isManagerPoll = data['ManagerPoll'];
         return (st.isBefore(today) && en.isAfter(today) && isManagerPoll);
       }).toList();
       setState(() {});

@@ -2,6 +2,7 @@ import 'package:app/Home/home.dart';
 import 'package:app/KYC/kyc.dart';
 import 'package:app/KYC/record_audio.dart';
 import 'package:app/Manager/manager.dart';
+import 'package:app/ManagerPoll/ManagerPoll.dart'
 import 'package:app/Precipitation/precipitation.dart';
 import 'package:app/firebase_options.dart';
 import 'package:app/Introduction/introduction_animation_screen.dart';

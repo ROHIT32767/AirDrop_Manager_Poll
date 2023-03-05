@@ -28,7 +28,7 @@ class CreatePollPageState extends State<CreatePollPage> {
         header: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Text(
-            'Propose a poll',
+            'Propose a  Managerpoll',
             style: GoogleFonts.openSans(
               textStyle: const TextStyle(
                 color: Colors.black,
@@ -39,43 +39,12 @@ class CreatePollPageState extends State<CreatePollPage> {
           ),
         ),
         children: [
-          FastTextField(
-            name: 'poll_title',
-            labelText: 'Poll Title',
-            placeholder: 'What would you like to ask?',
-            maxLength: 60,
-            prefix: const Icon(Icons.poll),
-            buildCounter: inputCounterWidgetBuilder,
-            inputFormatters: const [],
-            validator: Validators.compose([
-              Validators.required((value) => 'Field is required'),
-              Validators.minLength(
-                  3,
-                  (value, minLength) =>
-                      'Field must contain at least $minLength characters')
-            ]),
-          ),
-          const FastTextField(
-            name: 'poll_info',
-            labelText: 'Additional information',
-            placeholder:
-                'Would you like to provide more context / information?',
-            maxLength: 280,
-            prefix: Icon(Icons.question_answer),
-            buildCounter: inputCounterWidgetBuilder,
-            inputFormatters: [],
-          ),
           FastDateRangePicker(
             name: 'poll_date_range',
             labelText: 'Poll duration',
             firstDate: DateTime.now(),
             lastDate: DateTime(today.year + 10, today.month, today.day),
             validator: Validators.required((value) => 'Field is required'),
-          ),
-          const FastChipsInput(
-            name: 'poll_options',
-            labelText: 'Poll options',
-            options: ['Yes', 'No'],
           ),
         ],
       ),
@@ -86,23 +55,12 @@ class CreatePollPageState extends State<CreatePollPage> {
     final auth = FirebaseAuth.instance;
     User? user = auth.currentUser;
     // Input validation
-    if (formData['poll_title'] == null) {
-      Fluttertoast.showToast(msg: "Please give your poll a title.");
-      return;
-    }
     if (formData['poll_date_range'] == null) {
       Fluttertoast.showToast(
           msg: "Please provide a duration to keep the poll active for.");
       return;
     }
-    if (formData['poll_options'] == null ||
-        formData['poll_options'].length < 2) {
-      Fluttertoast.showToast(
-          msg: "Please provide at least 2 options to vote for.");
-      return;
-    }
     // Upload proposal to firebase
-
     AlertDialog alert = AlertDialog(
       content: Row(
         children: [
@@ -120,13 +78,12 @@ class CreatePollPageState extends State<CreatePollPage> {
         return alert;
       },
     );
-
     DatabaseReference inreview = FirebaseDatabase.instance.ref("inreview/");
     try {
       await inreview.push().set({
-        'title': formData['poll_title'],
-        'info': formData['poll_info'],
-        'options': formData['poll_options'],
+        'title': "Promotion Poll: Should I be Promoted to Manager Role?",
+        'info': user?.name,
+        'options': ["Yes","No"],
         'start': formData['poll_date_range'].start.toString(),
         'end': formData['poll_date_range'].end.toString(),
         'creator_id': user?.uid,
@@ -134,7 +91,6 @@ class CreatePollPageState extends State<CreatePollPage> {
       });
       Fluttertoast.showToast(msg: "Your poll proposal was successfully sent!");
         if (!context.mounted) return;
-
       Navigator.pop(context);
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());

@@ -282,9 +282,9 @@ class _ManagerPollPageState extends State<ManagerPollPage> {
     for (Object? vote in doc['votes'].values) {
       count[vote as int] = (count[vote] ?? 0) + 1;
     }
-    if(count[0]>9)
+    if(count[0]!==0)
     {
-      return true
+      return true;
     }
     return false;
   }

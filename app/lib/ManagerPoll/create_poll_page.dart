@@ -82,12 +82,12 @@ class CreatePollPageState extends State<CreatePollPage> {
     try {
       await inreview.push().set({
         'title': "Promotion Poll: Should I be Promoted to Manager Role?",
-        'info': user?.name,
+        'info': "POll info",
         'options': ["Yes","No"],
         'start': formData['poll_date_range'].start.toString(),
         'end': formData['poll_date_range'].end.toString(),
         'creator_id': user?.uid,
-        'ManagerPoll':false
+        'ManagerPoll':true
       });
       Fluttertoast.showToast(msg: "Your poll proposal was successfully sent!");
         if (!context.mounted) return;

@@ -84,10 +84,12 @@ class _InsuranceAddScreenState extends State<InsuranceAddScreen> {
         .collection("insurance options")
         .doc(id)
         .set(option);
+    
     Fluttertoast.showToast(
       msg: "Plan added successfully",
     );
   }
+
 
   @override
   Widget build(BuildContext context) {

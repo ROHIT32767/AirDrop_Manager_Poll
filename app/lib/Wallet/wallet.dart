@@ -105,7 +105,7 @@ class _WalletScreenState extends State<WalletScreen> {
     List<dynamic> result = await query('balanceOf', [addr]);
     balance = BigInt.parse(result[0].toString());
     loading = false;
-    //print(balance.toString());
+    print(balance.toString());
     setState(() {});
   }
 

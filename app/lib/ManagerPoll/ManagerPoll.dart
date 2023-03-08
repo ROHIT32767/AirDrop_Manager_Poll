@@ -194,7 +194,7 @@ class _ManagerPollPageState extends State<ManagerPollPage> {
                                       final docref = polls.doc(doc['id']);
                                       if(AboveLimit(doc))
                                       {
-                                        final data = {"userid": doc.creator_id};
+                                        final data = {"userid": doc['creator_id']};
                                         // Write code to create Join Requests
                                             try {
                                                   await db.collection("Requests").add(data);

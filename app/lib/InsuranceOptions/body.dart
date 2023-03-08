@@ -63,7 +63,7 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
     final addr = EthereumAddress.fromHex(loggedInUser.metamaskWAddress!);
     List<dynamic> result = await query('balanceOf', [addr]);
     balance = BigInt.parse(result[0].toString());
-    //print(balance.toString());
+    print("balance",balance.toString());
     setState(() {});
   }
 

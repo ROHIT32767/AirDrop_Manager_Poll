@@ -2,7 +2,7 @@ import 'package:app/Home/home.dart';
 import 'package:app/KYC/kyc.dart';
 import 'package:app/KYC/record_audio.dart';
 import 'package:app/Manager/manager.dart';
-import 'package:app/ManagerPoll/ManagerPoll.dart'
+import 'package:app/ManagerPoll/ManagerPoll.dart';
 import 'package:app/Precipitation/precipitation.dart';
 import 'package:app/firebase_options.dart';
 import 'package:app/Introduction/introduction_animation_screen.dart';
@@ -19,6 +19,7 @@ import 'package:app/Wallet/address_key.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:app/Wallet/wallet.dart';
 import 'Discourse/discourse_wview.dart';
+import 'InsuranceBid/InsuranceBid.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
@@ -49,7 +50,8 @@ Future<void> main() async {
       'audio': (context) => const RecorderPage(),
       'manager_page': (context) => const ManagerPage(),
       'claim_verify': (context) => const ClaimVerifyPage(),
-      'ManagerPoll' : (context) => const ManagerPollPage()
+      'ManagerPoll' : (context) => const ManagerPollPage(),
+      'InsuranceBid' : (context) => const InsuranceBid(),
     },
   ));
 }

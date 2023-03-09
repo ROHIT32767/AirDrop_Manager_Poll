@@ -54,6 +54,7 @@ class CreatePollPageState extends State<CreatePollPage> {
   void submitForm(UnmodifiableMapView<String, dynamic> formData) async {
     final auth = FirebaseAuth.instance;
     User? user = auth.currentUser;
+    print(user);
     // Input validation
     if (formData['poll_date_range'] == null) {
       Fluttertoast.showToast(
@@ -82,7 +83,7 @@ class CreatePollPageState extends State<CreatePollPage> {
     try {
       await inreview.push().set({
         'title': "Promotion Poll: Should I be Promoted to Manager Role?",
-        'info': "POll info",
+        'info': "poll info",
         'options': ["Yes","No"],
         'start': formData['poll_date_range'].start.toString(),
         'end': formData['poll_date_range'].end.toString(),
@@ -99,7 +100,6 @@ class CreatePollPageState extends State<CreatePollPage> {
 
     Navigator.pop(context);
   }
-
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();

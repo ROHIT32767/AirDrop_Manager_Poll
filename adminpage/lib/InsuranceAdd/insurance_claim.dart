@@ -79,6 +79,8 @@ class _InsuranceAddScreenState extends State<InsuranceAddScreen> {
       "visible": true,
       "created_time": DateTime.now(),
       "uuid": id,
+      "Option_bid":false,
+      "Speculator_id":null
     };
     await cloud_firebase.FirebaseFirestore.instance
         .collection("insurance options")

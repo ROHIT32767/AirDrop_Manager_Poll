@@ -29,7 +29,6 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
   String contractName = dotenv.env['CONTRACT_NAME']!;
   String masterWallet = dotenv.env['MASTER_WALLET']!;
   BigInt balance = BigInt.from(0);
-
   final Color bcolor = const Color(0xFF3D82AE);
   @override
   void initState() {
@@ -132,8 +131,9 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
         return;
       }
     }
+    
     int amount = widget.option.cost!;
-    BigInt parsedAmount = BigInt.from(amount) * (BigInt.from(10).pow(18));
+    BigInt parsedAmount = BigInt.from(amount)*(BigInt.from(10).pow(18));
     final addr = EthereumAddress.fromHex(masterWallet);
     //print(parsedAmount.toString());
     await transaction("transfer", [addr, parsedAmount]);

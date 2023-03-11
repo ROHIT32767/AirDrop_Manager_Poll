@@ -11,6 +11,7 @@ import 'package:app/model/user_model.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as cloud_firebase;
 
+
 class InsuranceDetails extends StatefulWidget {
   final OptionModel option;
   const InsuranceDetails({Key? key, required this.option}) : super(key: key);
@@ -147,6 +148,8 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
     //print("purchased");
     //print(result);
     updateUserOptions(insuranceInfo);
+    
+
   }
 
   @override

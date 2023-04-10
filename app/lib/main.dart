@@ -16,11 +16,10 @@ import 'package:app/InsuranceOptions/insurance_options.dart';
 import 'package:app/InsuranceClaim/insurance_claim.dart';
 import 'package:app/ClaimVerification/page.dart';
 import 'package:app/Wallet/address_key.dart';
-// import 'package:app/Money_flow/address.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:app/Wallet/wallet.dart';
-import 'package:app/Money_flow/money_stram.dart';
 import 'Discourse/discourse_wview.dart';
+import 'InsuranceBid/InsuranceBid.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
@@ -46,14 +45,13 @@ Future<void> main() async {
       'insurance_claim': (context) => const InsuranceClaimScreen(),
       'discourse': (context) => const DiscoursePage(),
       'add_key': (context) => const AddKeyScreen(),
-      // 'money_key':(context) => const MoneyScreen(),
       'precipitation': (context) => const Precipitation(),
       'snapshot': (context) => const SnapshotPage(),
       'audio': (context) => const RecorderPage(),
       'manager_page': (context) => const ManagerPage(),
       'claim_verify': (context) => const ClaimVerifyPage(),
-       'ManagerPoll' : (context) => const ManagerPollPage(),
-       'money_stram':(context) => const MoneyScreen()
+      'ManagerPoll' : (context) => const ManagerPollPage(),
+      'InsuranceBid' : (context) => const InsuranceBid(),
     },
   ));
 }

@@ -224,7 +224,7 @@ class RecorderPageState extends State<RecorderPage> {
                   onPressed: () {
                     showAboutDialog(
                         context: context,
-                        applicationVersion: '1.0.0',
+                        applicationVersion: '3.0.2',
                         applicationName: 'AirDropped Insurance',
                         applicationLegalese: (loggedInUser.name == null)
                             ? ""

@@ -266,7 +266,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     width: 10,
                                   ),
                                   Text(
-                                    'Speculator',
+                                    'Manager',
                                     style: TextStyle(
                                         color: manColor,
                                         fontSize: 14,
@@ -488,7 +488,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     userModel.email = user!.email;
     userModel.uid = user.uid;
     userModel.name = nameEditingController.text;
-    userModel.role = ((isSelected[0]) ? "member" : "speculator");
+    userModel.role = ((isSelected[0]) ? "member" : "manager");
     userModel.metamaskWAddress = null;
     userModel.metamaskPK = null;
     userModel.kycVerified = false;

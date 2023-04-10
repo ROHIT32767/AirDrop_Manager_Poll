@@ -6,6 +6,7 @@ import 'package:app/Authentication/login.dart';
 import 'package:app/KYC/coinbase_verify.dart';
 import 'package:app/KYC/record_audio.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:app/model/user_model.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:file_picker/file_picker.dart';
+// import 'package:file_picker/file_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class KYCPage extends StatefulWidget {
@@ -28,6 +29,27 @@ class KYCPageState extends State<KYCPage> {
   User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInUser = UserModel();
   dynamic userMap;
+
+  Future<bool> _requestPermission() async {
+    bool isGranted = false;
+    // Request permission to access media files
+    if (await Permission.storage.request().isGranted) {
+      // Permission granted, load media files
+      isGranted = true;
+    } else {
+      // Permission denied, show error message
+      Fluttertoast.showToast(
+          msg: 'Permission to access media files denied',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+    return isGranted;
+  }
+
 
   @override
   void initState() {
@@ -49,8 +71,8 @@ class KYCPageState extends State<KYCPage> {
     //Check Permissions
     await Permission.photos.request();
 
-    var permissionStatus = await Permission.photos.status;
-    if (permissionStatus.isGranted) {
+    var permissionStatus = await _requestPermission();
+    if (permissionStatus) {
       //Select Image
       image = (await imagePicker.pickImage(source: ImageSource.gallery)) as PickedFile?;
 
@@ -82,12 +104,13 @@ class KYCPageState extends State<KYCPage> {
 
   void uploadDocument() async {
     //Check Permissions
-    await Permission.storage.request();
 
-    var permissionStatus = await Permission.storage.status;
-    if (permissionStatus.isGranted) {
+
+    var permissionStatus = await _requestPermission();
+    if (permissionStatus) {
       //Select Image
       FilePickerResult? result = await FilePicker.platform.pickFiles();
+      // var result;
 
       if (result != null && result.files.single.path != null) {
         File file = File(result.files.single.path ?? "");
@@ -146,7 +169,7 @@ class KYCPageState extends State<KYCPage> {
                   onPressed: () {
                     showAboutDialog(
                         context: context,
-                        applicationVersion: '1.0.0',
+                        applicationVersion: '3.0.2',
                         applicationName: 'AirDropped Insurance',
                         applicationLegalese:
                             'To become a trusted user and gain access to the rest of the app you must first verify your email address. Next, at least one among the two remaining KYC options must be checked. Either login via your coinbase account or upload your official documents and an audio recording and wait for it to be verified by the team working at AirDrop Insurance. This might take upto 24 hours.');
@@ -356,7 +379,7 @@ class KYCPageState extends State<KYCPage> {
   // the logout function
   Future<void> logout(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
-    
+
     if(!context.mounted ) return ;
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const LoginScreen()));

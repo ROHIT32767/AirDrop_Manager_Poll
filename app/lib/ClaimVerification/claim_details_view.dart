@@ -62,7 +62,7 @@ void animateViewerDialog(BuildContext context, Widget dchild) {
 }
 
 class ClaimViewDetailsState extends State<ClaimViewDetails> {
-  final AudioPlayer player = AudioPlayer();
+  // final AudioPlayer player = AudioPlayer();
   bool isPlayingAudio = false;
   var balance = BigInt.from(0);
   late TextEditingController feedbackController;

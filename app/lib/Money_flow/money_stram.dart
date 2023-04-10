@@ -1,32 +1,25 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart' as cloud_firebase;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:app/model/user_model.dart';
-
-class WalletScreen extends StatefulWidget {
-  const WalletScreen({Key? key}) : super(key: key);
-
+class MoneyScreen extends StatefulWidget {
+  const MoneyScreen({Key? key}) : super(key: key);
   @override
-  State<WalletScreen> createState() => _WalletScreenState();
+  State<MoneyScreen> createState() => _MoneyScreenState();
 }
-
-class _WalletScreenState extends State<WalletScreen> {
+class _MoneyScreenState extends State<MoneyScreen> {
   User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInUser = UserModel();
-
   late Client httpClient;
   late Web3Client ethereumClient;
   TextEditingController controller = TextEditingController();
   TextEditingController addressController = TextEditingController();
-
   String ethereumClientUrl = dotenv.env['INFURA_URL']!;
 
   String contractName = dotenv.env['CONTRACT_NAME']!;
@@ -288,6 +281,55 @@ class _WalletScreenState extends State<WalletScreen> {
                     const SizedBox(
                       width: 45,
                     ),
+                    
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Row(children: [
+                  SizedBox(
+                    width: 50,
+                  ),
+                  Text(
+                    "Money flow",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
+                  )
+                ]),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    const SizedBox(
+                      width: 45,
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.6,
+                      child: TextField(
+                        style:
+                            const TextStyle(color: Colors.black, fontSize: 15),
+                        controller: controller,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          fillColor: Colors.grey.shade100,
+                          filled: true,
+                          prefixIcon: const Icon(Icons.currency_bitcoin),
+                          contentPadding:
+                              const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                          hintText: "Persecondflowrate",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 45,
+                    ),
                     Container(
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
@@ -302,28 +344,28 @@ class _WalletScreenState extends State<WalletScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 40,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.all(12.0),
-                        backgroundColor: Colors.black,
-                        textStyle: const TextStyle(fontSize: 16),
-                      ),
-                      onPressed: () {
-                        Navigator.pushNamed(context, 'add_key');
-                      },
-                      child: const Text('Update Wallet'),
-                    ),
-                    const SizedBox(
-                      width: 30,
-                    )
-                  ],
-                ),
+                // const SizedBox(
+                //   height: 40,
+                // ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.end,
+                //   children: [
+                //     ElevatedButton(
+                //       style: ElevatedButton.styleFrom(
+                //         padding: const EdgeInsets.all(12.0),
+                //         backgroundColor: Colors.black,
+                //         textStyle: const TextStyle(fontSize: 16),
+                //       ),
+                //       onPressed: () {
+                //         Navigator.pushNamed(context, 'add_key');
+                //       },
+                //       child: const Text('Update Wallet'),
+                //     ),
+                //     const SizedBox(
+                //       width: 30,
+                //     )
+                //   ],
+                // ),
                 const Spacer(),
                 const Spacer(),
               ],

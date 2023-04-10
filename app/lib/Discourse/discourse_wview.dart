@@ -42,7 +42,7 @@ class DiscoursePageState extends State<DiscoursePage> {
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
-              : const Stack(),
+              : Stack(),
         ],
       ),
     );

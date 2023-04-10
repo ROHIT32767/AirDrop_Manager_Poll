@@ -32,6 +32,16 @@ class DefaultFirebaseOptions {
           'DefaultFirebaseOptions have not been configured for macos - '
           'you can reconfigure this by running the FlutterFire CLI again.',
         );
+      case TargetPlatform.windows:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for windows - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
+      case TargetPlatform.linux:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for linux - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       default:
         throw UnsupportedError(
           'DefaultFirebaseOptions are not supported for this platform.',
@@ -41,9 +51,10 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDZq0maQtWQC1kENnN81xi2qyvFFpWyGFg',
-    appId: '1:224079419013:android:463ceae31d8982db53fbec',
+    appId: '1:224079419013:android:1db1650047830c8553fbec',
     messagingSenderId: '224079419013',
     projectId: 'airdrop-insurance',
+    databaseURL: 'https://airdrop-insurance-default-rtdb.firebaseio.com',
     storageBucket: 'airdrop-insurance.appspot.com',
   );
 
@@ -52,9 +63,10 @@ class DefaultFirebaseOptions {
     appId: '1:224079419013:ios:ccf8a722aa41855253fbec',
     messagingSenderId: '224079419013',
     projectId: 'airdrop-insurance',
+    databaseURL: 'https://airdrop-insurance-default-rtdb.firebaseio.com',
     storageBucket: 'airdrop-insurance.appspot.com',
-    iosClientId:
-        '224079419013-52kegscge1spifnrm9q0kv0b0uj46ad9.apps.googleusercontent.com',
+    androidClientId: '224079419013-nmp7b9imifvkqk4k2n92avbs5ljp1qa3.apps.googleusercontent.com',
+    iosClientId: '224079419013-52kegscge1spifnrm9q0kv0b0uj46ad9.apps.googleusercontent.com',
     iosBundleId: 'com.pef.airdropinsurance',
   );
 }

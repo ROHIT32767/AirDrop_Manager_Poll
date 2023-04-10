@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as cloud_firebase;
 import 'package:app/model/user_model.dart';
@@ -6,7 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:uuid/uuid.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:file_picker/file_picker.dart';
+// import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class InsuranceClaimScreen extends StatefulWidget {
@@ -24,7 +25,30 @@ class _InsuranceClaimScreenState extends State<InsuranceClaimScreen> {
   UserModel loggedInUser = UserModel();
   String? selectedValue;
   FilePickerResult? file;
+
   List<DropdownMenuItem<String>> menuItems = [];
+
+  Future<bool> _requestPermission() async {
+    bool isGranted = false;
+    // Request permission to access media files
+    if (await Permission.storage.request().isGranted) {
+      // Permission granted, load media files
+      isGranted = true;
+      docUpload();
+    } else {
+      // Permission denied, show error message
+      Fluttertoast.showToast(
+          msg: 'Permission to access media files denied',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+    return isGranted;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -59,16 +83,12 @@ class _InsuranceClaimScreenState extends State<InsuranceClaimScreen> {
   }
 
   void docUpload() async {
-    await Permission.storage.request();
+    //Select Image
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
 
-    var permissionStatus = await Permission.storage.status;
-    if (permissionStatus.isGranted) {
-      //Select Image
-      FilePickerResult? result = await FilePicker.platform.pickFiles();
-      setState(() {
-        file = result;
-      });
-    }
+    setState(() {
+      file = result;
+    });
   }
 
   void submitClaim() async {
@@ -189,7 +209,7 @@ class _InsuranceClaimScreenState extends State<InsuranceClaimScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const Row(children: [
+                            Row(children: [
                               Text(
                                 "Insurance Plan",
                                 style: TextStyle(
@@ -223,7 +243,7 @@ class _InsuranceClaimScreenState extends State<InsuranceClaimScreen> {
                             const SizedBox(
                               height: 30,
                             ),
-                            const Row(children: [
+                            Row(children: [
                               Text(
                                 'Document Upload',
                                 style: TextStyle(
@@ -235,7 +255,8 @@ class _InsuranceClaimScreenState extends State<InsuranceClaimScreen> {
                             Row(children: [
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  padding: const EdgeInsets.all(12.0), backgroundColor: Colors.black,
+                                  padding: const EdgeInsets.all(12.0),
+                                  backgroundColor: Colors.black,
                                   textStyle: const TextStyle(fontSize: 16),
                                 ),
                                 onPressed: () {
@@ -249,7 +270,7 @@ class _InsuranceClaimScreenState extends State<InsuranceClaimScreen> {
                             const SizedBox(
                               height: 30,
                             ),
-                            const Row(children: [
+                            Row(children: [
                               Text(
                                 "Description",
                                 style: TextStyle(
@@ -267,7 +288,8 @@ class _InsuranceClaimScreenState extends State<InsuranceClaimScreen> {
                               children: [
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    padding: const EdgeInsets.all(12.0), backgroundColor: Colors.black,
+                                    padding: const EdgeInsets.all(12.0),
+                                    backgroundColor: Colors.black,
                                     textStyle: const TextStyle(fontSize: 16),
                                   ),
                                   onPressed: () {

@@ -72,34 +72,44 @@ class GridDashboard extends StatelessWidget {
       event: "",
       img: "assets/home/claim.png",
       route: 'claim_verify');
-
+  
   Items item10 = Items(
       title: "ManagerPoll",
       subtitle: "Become a Manager!!",
       event: "",
       img: "assets/home/snapshot.png",
       route: 'ManagerPoll');
-
-  Items item11 = Items(
-      title: "Bid for Insurance Options",
-      subtitle: "Take risk for a higher reward!",
+     Items item11 = Items(
+      title: "Money stream",
+      subtitle: "How you want money flow!!",
       event: "",
       img: "assets/home/snapshot.png",
-      route: 'InsuranceBid');
+      route: 'money_stram');
 
   @override
   Widget build(BuildContext context) {
-    List<Items> myList = [item1, item2, item4, item5, item6, item7, item10];
+    List<Items> myList = [
+      item1,
+      item2,
+      item3,
+      item4,
+      item5,
+      item6,
+      item7,
+      item11,
+      // item10
+    ];
     if (loggedInUser.role != null &&
         (loggedInUser.role == "manager" || loggedInUser.role == "admin")) {
       myList.add(item9);
     }
-    if (loggedInUser.role != null && loggedInUser.role == 'speculator') {
-      myList = [item1, item2, item3, item4, item5, item6, item7, item11];
-    }
     if (loggedInUser.role != null && loggedInUser.role == 'admin') {
       myList.add(item8);
     }
+    if (loggedInUser.role != null && loggedInUser.role == 'member') {
+      myList.add(item10);
+    }
+
     var color = 0xff453658;
     return Flexible(
       child: GridView.count(
@@ -111,12 +121,7 @@ class GridDashboard extends StatelessWidget {
         children: myList.map((data) {
           return Container(
             foregroundDecoration: BoxDecoration(
-              color: (data.title == "KYC" ||
-                      (loggedInUser.coinbaseVerified != null &&
-                          loggedInUser.coinbaseVerified!) ||
-                      (loggedInUser.kycVerified != null &&
-                          loggedInUser.kycVerified!) ||
-                      user!.emailVerified)
+              color: (data.title == "KYC" ||(loggedInUser.coinbaseVerified != null && loggedInUser.coinbaseVerified!) ||(loggedInUser.kycVerified != null && loggedInUser.kycVerified!) || user!.emailVerified)
                   ? Colors.transparent
                   : Colors.grey,
               backgroundBlendMode: BlendMode.saturation,
@@ -128,10 +133,7 @@ class GridDashboard extends StatelessWidget {
             child: InkWell(
               onTap: () {
                 //removed true from here
-                if (data.title == "KYC" ||
-                    user!.emailVerified ||
-                    loggedInUser.kycVerified! ||
-                    loggedInUser.coinbaseVerified!) {
+                if (data.title == "KYC" || user!.emailVerified || loggedInUser.kycVerified! || loggedInUser.coinbaseVerified! ) {
                   Navigator.pushNamed(context, data.route);
                 }
               },

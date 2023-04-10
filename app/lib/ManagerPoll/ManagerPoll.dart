@@ -192,15 +192,17 @@ class _ManagerPollPageState extends State<ManagerPollPage> {
                                       CollectionReference polls =
                                           db.collection("polls");
                                       final docref = polls.doc(doc['id']);
-                                      if(AboveLimit(doc))
+                                      if(aboveLimit(doc))
                                       {
+                                        print("entered aboveLimit");
+                                        print("creator_id");
+                                        print(doc['creator_id']);
                                         final data = {"userid": doc['creator_id']};
                                         // Write code to create Join Requests
                                             try {
                                                   await db.collection("Requests").add(data);
                                                   Fluttertoast.showToast(msg: "Your Manager poll proposal was successfully sent!");
-                                                    if (!context.mounted) return;
-                                                  Navigator.pop(context);
+                                                  print("Manager Requests success");
                                                 } catch (e) {
                                                   Fluttertoast.showToast(msg: e.toString());
                                                 }
@@ -273,7 +275,8 @@ class _ManagerPollPageState extends State<ManagerPollPage> {
     Navigator.pop(context);
   }
 
-  bool AboveLimit(doc) {
+  bool aboveLimit(doc) {
+    print("entered aboveLimit");
     Map<int, double> count = {};
     for (int i = 0; i < doc['options'].length; i++) {
       count[i] = 0;
@@ -282,8 +285,9 @@ class _ManagerPollPageState extends State<ManagerPollPage> {
     for (Object? vote in doc['votes'].values) {
       count[vote as int] = (count[vote] ?? 0) + 1;
     }
-    if(count[0]!==0)
+    if(count[0]==0)
     {
+      print("count[0] is 0");
       return true;
     }
     return false;

@@ -79,8 +79,8 @@ class _InsuranceAddScreenState extends State<InsuranceAddScreen> {
       "visible": true,
       "created_time": DateTime.now(),
       "uuid": id,
-      "Option_bid":false,
-      "Speculator_id":null
+      "Option_bid":false, // A boolean variable that checks whether if the Insurance Option is bought by a speculator
+      "Speculator_id":null // UserID of the Speculator who has bought the insurance option
     };
     await cloud_firebase.FirebaseFirestore.instance
         .collection("insurance options")

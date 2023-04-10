@@ -74,7 +74,7 @@ class _InsuranceBidState extends State<InsuranceBid> {
                               fontWeight: FontWeight.bold),
                         ),
                         const Text(
-                          "100 Users have joined the Insurance Option",
+                          "100 Users have joined this Insurance Option",
                           style: TextStyle(
                               fontSize: 25,
                               color: Colors.black,
@@ -97,6 +97,7 @@ class _InsuranceBidState extends State<InsuranceBid> {
     cloud_firebase.FirebaseFirestore.instance
         .collection("insurance options")
         .orderBy("created_time", descending: false)
+        .where("Option_bid", isEqualTo: false)
         .get()
         .then((options) {
       for (var option in options.docs) {

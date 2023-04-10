@@ -96,6 +96,7 @@ class _WalletScreenState extends State<WalletScreen> {
   Future<DeployedContract> getContract() async {
     String abi = await rootBundle.loadString("assets/token/abi.json");
     // String contractAddress = dotenv.env["CONTRACT_ADDRESS"]!;
+    // TODO:
     String contractAddress = "0x7ad62035a6C1E0eB0569511B7FD0C5B19FCd9e0d";
     DeployedContract contract = DeployedContract(
       ContractAbi.fromJson(abi, contractName),

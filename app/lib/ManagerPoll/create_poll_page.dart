@@ -34,7 +34,7 @@ class CreatePollPageState extends State<CreatePollPage> {
                 color: Colors.black,
                 fontSize: 24,
                 fontWeight: FontWeight.w600,
-              ),
+              ), 
             ),
           ),
         ),
@@ -50,6 +50,13 @@ class CreatePollPageState extends State<CreatePollPage> {
       ),
     ];
   }
+
+
+Future<DocumentSnapshot> getObjectByUID(String uid) async {
+  DocumentSnapshot documentSnapshot =
+      await FirebaseFirestore.instance.collection('users').doc(uid).get();
+  return documentSnapshot;
+}
 
   void submitForm(UnmodifiableMapView<String, dynamic> formData) async {
     final auth = FirebaseAuth.instance;
@@ -78,11 +85,14 @@ class CreatePollPageState extends State<CreatePollPage> {
         return alert;
       },
     );
+
+    DocumentSnapshot snapshot = await getObjectByUID(user?.uid);
+
     DatabaseReference inreview = FirebaseDatabase.instance.ref("inreview/");
     try {
       await inreview.push().set({
         'title': "Promotion Poll: Should I be Promoted to Manager Role?",
-        'info': "1089",
+        'info': snapshot.data()["name"],
         'options': ["Yes","No"],
         'start': formData['poll_date_range'].start.toString(),
         'end': formData['poll_date_range'].end.toString(),

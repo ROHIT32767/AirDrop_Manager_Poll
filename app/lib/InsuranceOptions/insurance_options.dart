@@ -118,20 +118,6 @@ class _InsuranceOptionsScreenState extends State<InsuranceOptionsScreen> {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: const Color(0xFF3D82AE),
-          // leading: const Icon(
-          //   Icons.menu,
-          //   color: Colors.white,
-          // ),
-          // actions: <Widget>[
-          //   IconButton(
-          //     icon: const Icon(Icons.search, color: Colors.white),
-          //     onPressed: () {},
-          //   ),
-          //   IconButton(
-          //     icon: const Icon(Icons.person, color: Colors.white),
-          //     onPressed: () {},
-          //   )
-          // ],
         ),
         body: SizedBox(
           height: size.height,

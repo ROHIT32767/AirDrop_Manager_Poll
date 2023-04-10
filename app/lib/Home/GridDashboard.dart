@@ -95,7 +95,7 @@ class GridDashboard extends StatelessWidget {
       myList.add(item9);
     }
     if (loggedInUser.role != null && loggedInUser.role == 'speculator') {
-      myList = [item1, item2, item3, item4, item5, item6, item7, item11];
+      myList = [item1, item2, item4, item5 , item11];
     }
     if (loggedInUser.role != null && loggedInUser.role == 'admin') {
       myList.add(item8);

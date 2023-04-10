@@ -129,7 +129,7 @@ class _InsuranceBidState extends State<InsuranceBid> {
           height: size.height,
           child: Column(
             children: <Widget>[
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   Text(

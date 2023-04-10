@@ -58,6 +58,9 @@ dependencies:
   web3dart: ^2.3.5
   # webview_flutter: ^4.0.2
   webview_flutter_plus: ^0.3.0+2
+  flutter_hooks: ^0.16.0
+  superfluid: ^0.1.0+1
+
 
 dev_dependencies:
   build_runner: ^2.1.10

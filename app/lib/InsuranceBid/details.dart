@@ -1,14 +1,14 @@
 // a page to display details about a specific item
 import 'package:flutter/material.dart';
-import 'package:app/model/option_model.dart';
+import 'package:app/model/basket_model.dart';
 
 class Description extends StatelessWidget {
   const Description({
     Key? key,
-    required this.option,
+    required this.basket,
   }) : super(key: key);
 
-  final OptionModel option;
+  final BasketModel basket;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -17,7 +17,7 @@ class Description extends StatelessWidget {
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.9,
             child: Text(
-              option.description!,
+              basket.description!,
               style: Theme.of(context)
                   .textTheme
                   .headlineMedium

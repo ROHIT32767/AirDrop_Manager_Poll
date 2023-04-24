@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 // ignore: unused_import
 import 'constants.dart';
-import 'package:app/model/option_model.dart';
+import 'package:app/model/basket_model.dart';
 
 class Header extends StatelessWidget {
   const Header({
     Key? key,
-    required this.option,
+    required this.basket,
   }) : super(key: key);
 
-  final OptionModel option;
+  final BasketModel basket;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class Header extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            option.name!,
+            basket.name!,
             style: Theme.of(context)
                 .textTheme
                 .headlineMedium
@@ -29,9 +29,9 @@ class Header extends StatelessWidget {
           RichText(
             text: TextSpan(
               children: [
-                const TextSpan(text: "Provided By: \n"),
+                const TextSpan(text: "Users \n"),
                 TextSpan(
-                  text: option.provider!,
+                  text:  "Flows from ${basket.users.length} users ",
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
@@ -44,9 +44,9 @@ class Header extends StatelessWidget {
               RichText(
                 text: TextSpan(
                   children: [
-                    const TextSpan(text: "Price\n"),
+                    const TextSpan(text: "Premium\n"),
                     TextSpan(
-                      text: "${option.cost} token(s)/week",
+                      text: "${basket.cost} token(s)/week",
                       style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
@@ -61,9 +61,9 @@ class Header extends StatelessWidget {
               RichText(
                 text: TextSpan(
                   children: [
-                    const TextSpan(text: "Payout\n"),
+                    const TextSpan(text: "Deposit amount\n"),
                     TextSpan(
-                      text: "${option.payout} token(s)",
+                      text: "${basket.deposit_amount} token(s)",
                       style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
@@ -73,23 +73,6 @@ class Header extends StatelessWidget {
               const SizedBox(width: 20),
             ],
           ),
-          Row(
-            children: <Widget>[
-              RichText(
-                text: TextSpan(
-                  children: [
-                    const TextSpan(text: "Automation\n"),
-                    TextSpan(
-                      text: option.automated! ? "Automated" : "Not Automated",
-                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 20),
-            ],
-          )
         ],
       ),
     );

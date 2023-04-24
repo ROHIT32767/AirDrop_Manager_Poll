@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 // ignore: unused_import
 import 'constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as cloud_firebase;
-import 'package:app/model/option_model.dart';
+import 'package:app/model/basket_model.dart';
 import 'body.dart';
 
 class InsuranceBid extends StatefulWidget {
@@ -18,20 +18,20 @@ class _InsuranceBidState extends State<InsuranceBid> {
   double topContainer = 0;
 
   List<Widget> itemsData = [];
-  List<OptionModel> options = [];
+  List<BasketModel> baskets = [];
 
   void getPostsData() {
-    // List<dynamic> responseList = insuranceOptions;
+    // List<dynamic> responseList = insurancebaskets;
 
     List<Widget> listItems = [];
-    for (var post in options) {
+    for (var post in baskets) {
       listItems.add(InkWell(
           onTap: () => {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => InsuranceDetails(
-                              option: post,
+                              basket: post,
                             )))
               },
           child: Container(
@@ -74,7 +74,7 @@ class _InsuranceBidState extends State<InsuranceBid> {
                               fontWeight: FontWeight.bold),
                         ),
                         const Text(
-                          "100 Users have joined this Insurance Option",
+                          "${post.Users!.length} Users have joined this Insurance basket",
                           style: TextStyle(
                               fontSize: 25,
                               color: Colors.black,
@@ -93,16 +93,15 @@ class _InsuranceBidState extends State<InsuranceBid> {
 
   @override
   void initState() {
-    super.initState();
+    super.initState(); 
     cloud_firebase.FirebaseFirestore.instance
-        .collection("insurance options")
-        .orderBy("created_time", descending: false)
-        .where("Option_bid", isEqualTo: false)
+        .collection("Baskets")
+        .where("speculator_id", isNotEqualTo: null)
         .get()
-        .then((options) {
-      for (var option in options.docs) {
+        .then((baskets) {
+      for (var basket in baskets.docs) {
         setState(() {
-          this.options.add(OptionModel.fromMap(option.data()));
+          this.baskets.add(BasketModel.fromMap(basket.data()));
         });
       }
       getPostsData();
@@ -133,7 +132,7 @@ class _InsuranceBidState extends State<InsuranceBid> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   Text(
-                    "Insurance Options",
+                    "Insurance Baskets",
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,

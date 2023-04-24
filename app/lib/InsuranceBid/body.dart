@@ -1,4 +1,4 @@
-import 'package:app/model/option_model.dart';
+import 'package:app/model/basket_model.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +12,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as cloud_firebase;
 
 class InsuranceDetails extends StatefulWidget {
-  final OptionModel option;
-  const InsuranceDetails({Key? key, required this.option}) : super(key: key);
+  final BasketModel basket;
+  const InsuranceDetails({Key? key, required this.basket}) : super(key: key);
   @override
   State<InsuranceDetails> createState() => _InsuranceDetailsState();
 }
@@ -27,7 +27,7 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
   late Web3Client ethereumClient;
   String ethereumClientUrl = dotenv.env['INFURA_URL']!;
   String contractName = dotenv.env['CONTRACT_NAME']!;
-  String masterWallet = dotenv.env['MASTER_WALLET']!;
+  String masterWallet = dotenv.env['BASKET_1']!;
   BigInt balance = BigInt.from(0);
   final Color bcolor = const Color(0xFF3D82AE);
   @override
@@ -102,29 +102,29 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
     return result;
   }
 
-  void updateUserOptions(Map<String, dynamic> data) {
+  void updateUserbaskets(Map<String, dynamic> data) {
     cloud_firebase.FirebaseFirestore.instance
         .collection('users')
         .doc(user!.uid)
         .get()
         .then((value) {
       UserModel loggedInUser = UserModel.fromMap(value.data());
-      loggedInUser.options?.add(data);
+      loggedInUser.baskets?.add(data);
       cloud_firebase.FirebaseFirestore.instance
           .collection('users')
           .doc(user!.uid)
-          .update({'options': loggedInUser.options});
+          .update({'baskets': loggedInUser.baskets});
     });
   }
 
   Future<void> purchase() async {
     // Check if user already has this plan that is active
     var now = DateTime.now();
-    for (var x in loggedInUser.options!) {
-      if (x['uuid'] == widget.option.uuid &&
+    for (var x in loggedInUser.baskets!) {
+      if (x['uuid'] == widget.basket.uuid &&
           now.difference(x["timestamp"].toDate()).inDays < 7) {
         Fluttertoast.showToast(
-            msg: "This insurance option is already active",
+            msg: "This insurance basket is already active",
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 16.0);
@@ -132,21 +132,20 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
       }
     }
     
-    int amount = widget.option.cost!;
+    int amount = widget.basket.cost!;
     BigInt parsedAmount = BigInt.from(amount)*(BigInt.from(10).pow(18));
     final addr = EthereumAddress.fromHex(masterWallet);
     //print(parsedAmount.toString());
     await transaction("transfer", [addr, parsedAmount]);
-    Fluttertoast.showToast(msg: "Insurance purchased");
+    Fluttertoast.showToast(msg: "Basket purchased");
     Map<String, dynamic> insuranceInfo = {
-      "uuid": widget.option.uuid!,
-      "name": widget.option.name!,
-      "automated": widget.option.automated!,
-      "timestamp": DateTime.now(),
+      "uuid": widget.basket.uuid!,
+      "name": widget.basket.name!,
+      "automated": widget.basket.automated!,
     };
     //print("purchased");
     //print(result);
-    updateUserOptions(insuranceInfo);
+    updateUserbaskets(insuranceInfo);
   }
 
   @override
@@ -184,12 +183,12 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
                       // child: Description(index: index),
                       child: Column(
                         children: <Widget>[
-                          Description(option: widget.option),
+                          Description(basket: widget.basket),
                           Expanded(child: Container()),
                           Container(
                             foregroundDecoration: BoxDecoration(
                                 color: (balance.compareTo(
-                                            BigInt.from(widget.option.cost!)) >=
+                                            BigInt.from(widget.basket.cost!)) >=
                                         0)
                                     ? Colors.transparent
                                     : Colors.grey,
@@ -201,7 +200,7 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
                               ),
                               onPressed: () {
                                 (balance.compareTo(
-                                            BigInt.from(widget.option.cost!)) >=
+                                            BigInt.from(widget.basket.cost!)) >=
                                         0)
                                     ? purchase()
                                     : Fluttertoast.showToast(
@@ -210,13 +209,13 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
                                         textColor: Colors.white,
                                         fontSize: 16.0);
                               },
-                              child: const Text('Take Risk for this Option'),
+                              child: const Text('Take Risk for this basket'),
                             ),
                           )
                         ],
                       ),
                     ),
-                    Header(option: widget.option)
+                    Header(basket: widget.basket)
                   ],
                 ),
               )
